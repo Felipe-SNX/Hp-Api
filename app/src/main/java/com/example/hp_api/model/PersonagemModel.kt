@@ -8,7 +8,8 @@ data class PersonagemModel(
     val alternate_names: List<String>,
     val species: String,
     val gender: String,
-    val dateOfBirth: Date,
+    val house: String,
+    val dateOfBirth: String,
     val yearOfBirth: Int,
     val wizard: Boolean,
     val ancestry: String,
@@ -23,3 +24,4 @@ data class PersonagemModel(
     val alive: Boolean,
     val image: String,
 )
+

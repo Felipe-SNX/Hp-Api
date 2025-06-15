@@ -12,4 +12,9 @@ interface HPApi {
     @GET("characters/house/{house}")
     suspend fun getStudentsByHouse(
         @Path("house") house: String
-    ): List<PersonagemModel>}
+    ): List<PersonagemModel>
+
+    @GET("character/{id}")
+    suspend fun getPersonagemID(@Path("id") id: String): List<PersonagemModel>
+
+}
