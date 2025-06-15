@@ -7,4 +7,53 @@
     android:layout_height="match_parent"
     tools:context=".controller.ListCharacter">
 
+    <EditText
+        android:id="@+id/etPersonagemID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="437dp" />
+
+    <Button
+        android:id="@+id/bntBuscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="518dp" />
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Nome: Harry Potter"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="241dp" />
+
+    <TextView
+        android:id="@+id/textViewCasa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Casa: Gryffindor"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="315dp" />
+
+    <TextView
+        android:id="@+id/textViewEspecie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Espécie: Humano"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="277dp" />
+
+    <ImageView
+        android:id="@+id/imageViewPersonagem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="85dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
