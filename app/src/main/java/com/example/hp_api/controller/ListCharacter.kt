@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import coil.load
 
 
 class ListCharacter : AppCompatActivity() {
@@ -82,9 +83,9 @@ class ListCharacter : AppCompatActivity() {
                     textViewCasa.text = "Casa: ${personagemID.house}"
 
 
-                   /*imageViewPersonagem.load(personagemID.image) {
-                        error(R.drawable.ic_launcher_foreground)
-                   }*/
+                   imageViewPersonagem.load(personagemID.image) {
+                       error(R.drawable.ic_launcher_foreground)
+                   }
 
                 } else {
                     Toast.makeText(

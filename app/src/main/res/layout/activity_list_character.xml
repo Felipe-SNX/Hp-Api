@@ -1,60 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="120dp"
     tools:context=".controller.ListCharacter">
 
-    <EditText
-        android:id="@+id/etPersonagemID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="437dp" />
-
-    <Button
-        android:id="@+id/btnBuscar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="518dp" />
+    <ImageView
+        android:id="@+id/imageViewPersonagem"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPersonagem"
-        tools:layout_editor_absoluteX="32dp"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
         tools:text="Nome: Harry Potter" />
 
     <TextView
         android:id="@+id/textViewCasa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Casa: Gryffindor"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="315dp" />
+        android:layout_marginTop="8dp"
+        tools:text="Casa: Gryffindor" />
 
     <TextView
         android:id="@+id/textViewEspecie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Espécie: Humano"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="277dp" />
+        android:layout_marginTop="8dp"
+        tools:text="Espécie: Humano" />
 
-    <ImageView
-        android:id="@+id/imageViewPersonagem"
+    <EditText
+        android:id="@+id/etPersonagemID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Digite o ID do personagem"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btnBuscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="85dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
+        android:text="Buscar" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
