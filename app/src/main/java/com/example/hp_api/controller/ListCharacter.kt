@@ -25,7 +25,7 @@ class ListCharacter : AppCompatActivity() {
         val imageViewPersonagem = findViewById<ImageView>(R.id.imageViewPersonagem)
         val bntBuscar = findViewById<Button>(R.id.bntBuscar)
 
-        bntBuscar.setOnClickListener
+        /*bntBuscar.setOnClickListener
 
             buscaPersonagemID
             val personagemID = editTextPersonagemID.text.toString()
@@ -39,7 +39,7 @@ class ListCharacter : AppCompatActivity() {
                 try {
                     val response = RetrofitClient.instance.getPersonagem()
             }
-        }
+        }*/
 
 
 
