@@ -5,17 +5,15 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.hp_api.R
 import com.example.hp_api.data.interfaces.HPApi
 import com.example.hp_api.model.FeiticosModel
+import com.example.hp_api.utils.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -23,9 +21,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ListSpells : AppCompatActivity() {
+
+    private lateinit var titleTextView: TextView;
     private lateinit var listView: ListView;
-    private lateinit var hpApi: HPApi;
-    private lateinit var emptyTextView: TextView;
+    private lateinit var loadingTextView: TextView;
+    private lateinit var progressBar: ProgressBar;
     private val activityContext = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,20 +34,16 @@ class ListSpells : AppCompatActivity() {
         setContentView(R.layout.activity_list_spells);
 
         listView = findViewById(R.id.resultadoListView);
-        emptyTextView = findViewById(R.id.emptyTextView);
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://hp-api.onrender.com/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        hpApi = retrofit.create(HPApi::class.java);
+        loadingTextView = findViewById(R.id.loadingTextView);
+        progressBar = findViewById(R.id.progressBar);
+        titleTextView = findViewById(R.id.titleTextView);
 
         buscarFeiticosApi();
 
         listView.setOnItemClickListener { parent, view, position, id ->
             val selectedChar = parent.getItemAtPosition(position) as FeiticosModel
-            val intent = Intent(this, DetailSpells::class.java).apply {
-                putExtra("spellID", selectedChar.id)
+            val intent = Intent(this, DetailSpell::class.java).apply {
+                putExtra("feitico", selectedChar);
             }
             startActivity(intent)
         }
@@ -58,7 +54,7 @@ class ListSpells : AppCompatActivity() {
         lifecycleScope.launch {
             try{
                 val spells: List<FeiticosModel> = withContext(Dispatchers.IO) {
-                    hpApi.getAllSpells();
+                    RetrofitClient.apiService.getAllSpells()
                 }
 
                 val adapter = ArrayAdapter(
@@ -71,19 +67,20 @@ class ListSpells : AppCompatActivity() {
             }
             catch (e: Exception){
                 Log.e("ListSpells", "Erro ao buscar os feiticos", e);
-                hideListView();
-                emptyTextView.text = "Erro ao buscar os feitiços";
+                hideProgressBar();
+                loadingTextView.text = "Ocorreu um erro ao buscar os feitiços";
             }
         }
     }
 
-    fun hideListView(){
-        listView.visibility = ListView.GONE;
-        emptyTextView.visibility = TextView.VISIBLE;
+    fun hideProgressBar(){
+        progressBar.visibility = ProgressBar.GONE;
     }
 
     fun showListView(){
+        loadingTextView.visibility = TextView.GONE;
+        progressBar.visibility = ProgressBar.GONE;
+        titleTextView.visibility = TextView.VISIBLE;
         listView.visibility = ListView.VISIBLE;
-        emptyTextView.visibility = TextView.GONE;
     }
 }
