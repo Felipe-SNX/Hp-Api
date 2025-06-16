@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rootStudents"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black"
+    android:id="@+id/root"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <RadioGroup
-        android:id="@+id/rgHouses"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        <RadioGroup
+            android:id="@+id/housesGroup"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <RadioButton
             android:id="@+id/rbGryffindor"
+            android:tag="gryffindor"
+            android:text="Gryffindor"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gryffindor" />
+            android:layout_height="wrap_content"/>
 
         <RadioButton
             android:id="@+id/rbSlytherin"
+            android:tag="slytherin"
+            android:text="Slytherin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Slytherin" />
-
-        <RadioButton
-            android:id="@+id/rbHufflepuff"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hufflepuff" />
+            android:layout_height="wrap_content"/>
 
         <RadioButton
             android:id="@+id/rbRavenclaw"
+            android:tag="ravenclaw"
+            android:text="Ravenclaw"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ravenclaw" />
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/rbHufflepuff"
+            android:tag="hufflepuff"
+            android:text="Hufflepuff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
     </RadioGroup>
 
     <Button
         android:id="@+id/btnBuscar"
+        android:text="Buscar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Buscar"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="12dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -52,11 +56,9 @@
         android:layout_marginTop="12dp">
 
         <TextView
-            android:id="@+id/tvStudents"
+            android:id="@+id/resultText"
+            android:textSize="16sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content"/>
     </ScrollView>
-
 </LinearLayout>
