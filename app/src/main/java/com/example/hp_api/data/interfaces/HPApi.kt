@@ -17,4 +17,7 @@ interface HPApi {
     @GET("character/{id}")
     suspend fun getPersonagemID(@Path("id") id: String): List<PersonagemModel>
 
+    @GET("characters/staff")
+    suspend fun getAllStaff(): List<PersonagemModel>
+
 }
