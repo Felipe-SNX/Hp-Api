@@ -55,20 +55,20 @@ class ListTeacher : AppCompatActivity() {
 
     private suspend fun buscarStaffApi() : List<PersonagemModel>? {
 
-            return try {
-                withContext(Dispatchers.IO) {
-                    RetrofitClient.apiService.getAllStaff()
-                }
+        return try {
+            withContext(Dispatchers.IO) {
+                RetrofitClient.apiService.getAllStaff()
             }
-            catch (e: Exception) {
-                Toast.makeText(
-                    this@ListTeacher,
-                    "Não foi possivel buscar o professor, tente novamente.",
-                    Toast.LENGTH_LONG
-                ).show()
-                Log.e("ListTeacher", "Erro ao buscar o professor", e)
-                null
-            }
+        }
+        catch (e: Exception) {
+            Toast.makeText(
+                this@ListTeacher,
+                "Não foi possivel buscar o professor, tente novamente.",
+                Toast.LENGTH_LONG
+            ).show()
+            Log.e("ListTeacher", "Erro ao buscar o professor", e)
+            null
+        }
     }
 
     private fun buscarStaff() {

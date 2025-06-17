@@ -12,14 +12,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.hp_api.R
-import com.example.hp_api.data.interfaces.HPApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import coil.load
 import com.example.hp_api.model.PersonagemModel
+import com.example.hp_api.utils.RetrofitClient
 
 
 class ListCharacter : AppCompatActivity() {
@@ -31,10 +29,8 @@ class ListCharacter : AppCompatActivity() {
     private lateinit var textViewEspecie: TextView
     private lateinit var imageViewPersonagem: ImageView
     private lateinit var btnBuscar: Button
-    private lateinit var hpApi: HPApi
     private lateinit var progressBar: ProgressBar
     private lateinit var loadingTextView: TextView
-    private val personagemID = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,47 +47,32 @@ class ListCharacter : AppCompatActivity() {
         progressBar = findViewById<ProgressBar>(R.id.progressBar)
         loadingTextView = findViewById<TextView>(R.id.loadingTextView)
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://hp-api.onrender.com/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        hpApi = retrofit.create(HPApi::class.java)
 
         btnBuscar.setOnClickListener {
-            val personagemID = etPersonagemID.text.toString()
-
-            if (personagemID.isBlank()) {
-                Toast.makeText(this, "Por favor, insira um ID de personagem", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            buscarPersonagemIDApi(personagemID)
-
+            buscarPersonagemIDApi()
         }
 
     }
 
-    private fun buscarPersonagemIDApi(personagemID: String) {
+    private fun buscarPersonagemIDApi() {
 
         lifecycleScope.launch {
             try {
-                val response = withContext(Dispatchers.IO) {
-                    hpApi.getPersonagemID(personagemID)
-                }
-                val personagemID = response.firstOrNull()
 
-                if (personagemID != null) {
+                val personagemID = etPersonagemID.text.toString()
 
-                    System.out.println(personagemID.name)
+                if (!validateFields(personagemID))
+                    return@launch
 
-                    textViewName.text = "Nome: ${personagemID.name}"
-                    textViewEspecie.text = "Espécie: ${personagemID.species}"
-                    textViewCasa.text = "Casa: ${personagemID.house}"
+                showProgressBar()
 
+                val response = buscarPersonagemAPI(personagemID)
+                val personagem = response?.firstOrNull()
 
-                   imageViewPersonagem.load(personagemID.image) {
-                       error(R.drawable.ic_launcher_foreground)
-                   }
+                if (personagem != null) {
+
+                    preencherCampos(personagem)
+                    showCharacter()
 
                 } else {
                     Toast.makeText(
@@ -103,10 +84,13 @@ class ListCharacter : AppCompatActivity() {
             } catch (e: Exception) {
                 Toast.makeText(
                     this@ListCharacter,
-                    "Falha na busca: ${e.message}",
+                    "Não foi possivel buscar o personagem, tente novamente.",
                     Toast.LENGTH_LONG
                 ).show()
                 Log.e("ListCharacter", "Erro ao buscar o personagem", e)
+            }
+            finally {
+                hideProgressBar()
             }
         }
     }
@@ -125,23 +109,47 @@ class ListCharacter : AppCompatActivity() {
         loadingTextView.visibility = TextView.GONE
     }
 
-    private fun showStaff(){
+    private fun showCharacter(){
         textViewName.visibility = TextView.VISIBLE
         textViewCasa.visibility = TextView.VISIBLE
         textViewEspecie.visibility = TextView.VISIBLE
         imageViewPersonagem.visibility = ImageView.VISIBLE
     }
 
-    /*private fun preencherCampos(staff: PersonagemModel) {
-        textViewName.text = "Nome: ${staff.name}"
-        textViewEspecie.text = "Espécie: ${staff.species}"
-        textViewCasa.text = "Casa: ${staff.house}"
-        textViewAlternateNames.text = "Apelidos: ${staff.alternate_names.joinToString(", ")}"
+    private fun preencherCampos(personagemID: PersonagemModel) {
+        textViewName.text = "Nome: ${personagemID.name}"
+        textViewEspecie.text = "Espécie: ${personagemID.species}"
+        textViewCasa.text = "Casa: ${personagemID.house}"
 
-        imageViewPersonagem.load(staff.image) {
+        imageViewPersonagem.load(personagemID.image) {
             error(R.drawable.ic_launcher_foreground)
         }
 
-    }*/
+    }
 
+    private fun validateFields(personagemID: String) : Boolean {
+
+        if (personagemID.isBlank()) {
+            Toast.makeText(this, "Por favor, insira um ID de personagem", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
+
+    private suspend fun buscarPersonagemAPI(personagemID: String) : List<PersonagemModel>? {
+        return try {
+            withContext(Dispatchers.IO) {
+                RetrofitClient.apiService.getPersonagemID(personagemID)
+            }
+        }
+        catch (e: Exception) {
+            Toast.makeText(
+                this@ListCharacter,
+                "Não foi possivel buscar o personagem, tente novamente.",
+                Toast.LENGTH_LONG
+            ).show()
+            Log.e("ListCharacter", "Erro ao buscar o personagem", e)
+            null
+        }
+    }
 }
