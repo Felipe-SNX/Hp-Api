@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/root"
     android:orientation="vertical"
     android:padding="16dp"
+    android:paddingTop="56dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-        <RadioGroup
-            android:id="@+id/housesGroup"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:layout_marginTop="60dp"
+        android:text="Estudantes por Casa"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"/>
+
+    <RadioGroup
+        android:id="@+id/housesGroup"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <RadioButton
             android:id="@+id/rbGryffindor"
@@ -39,7 +51,6 @@
             android:text="Hufflepuff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
     </RadioGroup>
 
     <Button
@@ -47,13 +58,13 @@
         android:text="Buscar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"/>
+        android:layout_marginTop="24dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="24dp">
 
         <TextView
             android:id="@+id/resultText"
@@ -61,4 +72,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </ScrollView>
+
 </LinearLayout>
